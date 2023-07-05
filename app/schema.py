@@ -1,7 +1,16 @@
 from typing import Optional
 
 from pydantic import BaseModel
+from enum import Enum
 
+class GenderEnum(Enum):
+    male = "male"
+    female = "female"
+
+class RawTriggerImagineIn(BaseModel):
+    age: float
+    gender: GenderEnum = GenderEnum.male
+    picurl: Optional[str]
 
 class TriggerImagineIn(BaseModel):
     prompt: str
