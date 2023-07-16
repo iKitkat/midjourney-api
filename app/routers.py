@@ -5,6 +5,7 @@ from lib.api.discord import TriggerType
 from util._queue import taskqueue
 from .handler import prompt_handler, unique_id
 from .schema import (
+    RawTriggerImagineIn,
     TriggerImagineIn,
     TriggerUVIn,
     TriggerResetIn,
@@ -20,8 +21,8 @@ router = APIRouter()
 
 
 @router.post("/imagine", response_model=TriggerResponse)
-async def imagine(body: TriggerImagineIn):
-    trigger_id, prompt = prompt_handler(body.prompt, body.picurl)
+async def imagine(body: RawTriggerImagineIn):
+    trigger_id, prompt = prompt_handler(body.uid, body.gender.value, body.age, body.picurl)
     trigger_type = TriggerType.generate.value
 
     taskqueue.put(trigger_id, discord.generate, prompt)

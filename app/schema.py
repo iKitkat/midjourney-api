@@ -8,6 +8,7 @@ class GenderEnum(Enum):
     female = "female"
 
 class RawTriggerImagineIn(BaseModel):
+    uid: str
     age: float
     gender: GenderEnum = GenderEnum.male
     picurl: Optional[str]
