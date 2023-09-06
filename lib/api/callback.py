@@ -29,12 +29,14 @@ def result_parser(data):
 
 def download_url(trigger_id, url):
     db_dir = "/root/img_db/"
-    image = open(f'{db_dir}{trigger_id}.jpg','wb')
+    image = open(f'{db_dir}{trigger_id}_ori.jpg','wb')
     response = requests.get(url)
     image.write(response.content)
     image.close()
 
-    img = Image.open(f'{db_dir}{trigger_id}.jpg')
+    img = Image.open(f'{db_dir}{trigger_id}_ori.jpg')
+    # 图片压缩
+    img.save(f'{db_dir}{trigger_id}.jpg', quality=95)
     width, height = img.size
     x = width/2
     y = height/2
